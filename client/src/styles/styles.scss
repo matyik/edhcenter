@@ -1,0 +1,650 @@
+@import 'config';
+@import 'color_logic';
+
+
+body {
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 4rem;
+	align-items: center;
+    background-color: $color_3;
+}
+.bg-svg {
+	filter: blur(100px);
+	position: fixed;
+	left: 0;
+	top: 5.5vh;
+	width: 100vw;
+	height: 100vh;
+}
+.cards {
+	cursor: default;
+}
+.card {
+	text-align: center;
+	width: inherit;
+	background-color: $color_1;
+	border-top: #000 2px solid;
+	cursor: default;
+    transition: background-color 500ms, color 500ms;
+    color: set-text-color($color_1);
+
+    &:hover {
+        background-color: $color_2;
+	    color: set-text-color($color_2);
+    }
+}
+.deck-container {
+	position: relative;
+	left: 2.5vw;
+	top: 5vh;
+	display: grid;
+	grid-template-columns: repeat(5, 15vw);
+	grid-column-gap: 5vw;
+}
+.preview-on-hover {
+	position: fixed;
+	max-height: 448px;
+	max-width: 680px;
+	left: 100%;
+	width: 200px;
+	height: 280px;
+	top: 7%;
+	transform: translate(-110%, 0px);
+	background: #000;
+	color: #fff;
+	border-radius: 9px;
+}
+.topbar {
+	text-align: center;
+	width: 100%;
+	background: #ccc;
+	height: 42vh;
+	opacity: 99%;
+	border-bottom: #fff solid 2px;
+}
+.title-text {
+	font-size: 24pt;
+	font-family: comic sans ms;
+}
+.title-input {
+	background: transparent;
+	border: none;
+	text-align: center;
+	font-size: 24pt;
+	font-family: comic sans ms;
+}
+.text-stats {
+	position: absolute;
+	left: 1vw;
+	top: 8%;
+	text-align: left;
+	font-size: 12pt;
+	background-color: $color_5;
+	width: 9rem;
+	color: set-text-color($color_5);
+	font-family: open sans;
+	border: 2px solid #fff;
+	border-radius: 7px;
+	padding: 1rem;
+}
+
+.cmc-settings {
+	background: $color_5;
+	color: set-text-color($color_5);
+	font-family: open sans;
+	border: 2px solid #fff;
+	border-radius: 11px;
+	text-align: left;
+	width: 15%;
+	position: absolute;
+	top: 11%;
+	left: 20%;
+}
+.image-previewer {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	border-radius: 9px;
+}
+
+.featured-deck {
+	background: #ddd;
+	border: 1px #000 solid;
+    border-radius: 11px;
+    &:hover {
+        background: #8fcacc;
+    }
+}
+
+#featured-decks-bar {
+	display: none;
+	position: absolute;
+	left: 5%;
+	top: 7%;
+	background: #a374de;
+	border: 1px solid #fff;
+	border-radius: 11px;
+	height: 25%;
+	color: #006411;
+}
+
+.paragraph {
+	text-align: justify;
+	width: 50%;
+	position: absolute;
+	left: 25vw;
+	background: #ccc;
+	opacity: 80%;
+}
+
+.error-card {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.main-topbar {
+	background: linear-gradient(233deg, $color_2, #39393a, $color_4);
+	color: #fff;
+	font-family: Raleway;
+	font-size: 14pt;
+	align-items: center;
+	border-bottom: 2px solid #fff;
+	height: 5.5vh;
+	display: flex;
+	justify-content: space-between;
+	padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    
+    & img {
+        height: 5vh;
+        cursor: pointer;
+        justify-self: center;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    & span {
+        cursor: default;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.nav-items {
+	display: flex;
+	justify-content: space-between;
+	width: 38vw;
+}
+
+.chart-container {
+	position: relative;
+	left: 50%;
+	top: 10%;
+	transform: translate(-50%, -0%);
+	width: 400px;
+	height: 400px;
+	color: $color_1;
+}
+
+footer {
+	height: 1.5rem;
+	color: #fff;
+	border-top: 2px solid #fff;
+	background: rgb(78, 78, 78);
+	position: relative;
+	top: 4rem;
+	text-align: center;
+	width: 100vw;
+}
+
+a {
+	color: #0000ff;
+}
+
+.ec-button {
+	background-color: #00aeff;
+	font-family: Open Sans;
+	font-size: 11pt;
+	border: 1.5px solid;
+	border-bottom-color: #fff;
+	border-left-color: #fff;
+	border-right-color: #ddd;
+	border-top-color: #ddd;
+	color: #fff;
+	margin: 1rem;
+	padding: 0.5rem;
+	cursor: pointer;
+    transition: all 250ms ease-in;
+    
+    &:hover {
+        background-color: darken($color: #00aeff, $amount: 10);
+        border-top-color: #fff;
+        border-right-color: #fff;
+        border-bottom-color: #ddd;
+        border-left-color: #ddd;
+    }
+
+    &-gray {
+        background-color: #ccc;
+
+        &:hover {
+            background-color: darken($color: #ccc, $amount: 10)
+        }
+    }
+}
+
+.commander {
+	height: 10vw;
+	border-radius: 9px;
+	margin: 1rem;
+	position: relative;
+	top: 5vh;
+}
+
+.mainwrap {
+	text-align: center;
+}
+
+.modal-shade {
+	top: 0;
+	left: 0;
+	position: fixed;
+	opacity: 0.6;
+	background-color: #333;
+	width: 100vw;
+	height: 100vh;
+}
+
+.modal-main {
+	position: fixed;
+	left: 30vw;
+	top: 30vh;
+	width: 40vw;
+	height: 40vh;
+	background-color: #fff;
+	border: 2px solid #ccc;
+	border-radius: 3px;
+}
+
+.modal-title {
+	background-color: #ddd;
+	font-family: Open Sans;
+	padding: 0.25rem;
+}
+
+.modal-content {
+    padding: 1rem;
+    
+    & input {
+        width: 80%;
+        font-size: 11pt;
+        margin: 0.25rem;
+        transition: background-color 250ms;
+
+        &:focus {
+            background-color: #a0e1ff;
+            border: none;
+        }
+    }
+}
+
+.modal-bottom {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.filter-grid {
+	width: 30vw;
+	position: relative;
+	left: 35vw;
+	display: flex;
+	border: 1px solid #00f;
+	justify-content: space-between;
+}
+
+.filter-item {
+	transition: all 250ms;
+    padding: 1vw;
+    
+    &:hover {
+        background-color: #aaa;
+    }
+
+    & img {
+        height: 3vh;
+    }
+}
+
+.filter-gray {
+	filter: grayscale(100%);
+}
+
+.hover-helper {
+	position: absolute;
+	background-color: rgb(53, 53, 53);
+	color: #fff;
+	width: 10vw;
+	border-radius: 3px;
+	font-family: Open Sans;
+}
+
+.loading-bar {
+	width: 20vw;
+	height: 10px;
+	border-radius: 5px;
+	background-color: rgb(139, 139, 139);
+	position: relative;
+	margin: 20px;
+	left: 40vw;
+	overflow: hidden;
+}
+
+.loaded {
+	background-color: $color_1;
+	height: 100%;
+}
+
+.stats-container {
+	height: 24vh;
+	overflow: hidden;
+}
+
+.nav-hamburger {
+	display: none;
+}
+
+.mobile-nav {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+	background-color: #39393A;
+	color: #fff;
+	font-family: Open Sans;
+}
+
+.play-container {
+    margin: 0px;
+    padding: 0px;
+    background-color: #46bec2;
+    font-family: Open Sans;
+}
+
+.play-container #bottomBar {
+    background: #46c257;
+    position: fixed;
+    top: 83%;
+    height: 17%;
+    width: 100%;
+}
+
+.play-container #bottomBar div {
+    height: 16%;
+    border: 2px solid #000;
+    position: fixed;
+    top: 83.5%;
+}
+
+.play-container #graveyardArea {
+    left: 0px;
+    width: 12.5vw;
+}
+
+.play-container #handArea {
+    left: 13.25vw;
+    width: 79.75vw;
+    display: flex;
+    align-content: center;
+}
+
+.play-container #libraryArea {
+    left: 93.75vw;
+    width: 6.25vw;
+}
+
+.play-container #chatBar {
+    position: fixed;
+    height: 77%;
+    width: 20%;
+    background: #d18547;
+    border: 2px solid #000;
+    left: 80%;
+    top: 2.5%;
+    overflow-y: scroll;
+}
+
+.play-container .chat-message {
+    background: #94babb;
+    width: 85%;
+    font-size: 12pt;
+    position: relative;
+    left: 7.5%;
+    border-radius: 9px;
+    margin: 2%;
+}
+
+.play-container .meta {
+    color: #2a42c9;
+    position: relative;
+    left: 5%;
+}
+
+.play-container .text {
+    color: #222;
+    position: relative;
+    left: 2.5%;
+}
+
+.play-container #message-input {
+    position: relative;
+    width: 80%;
+    margin: 1.5%;
+}
+
+.play-container #send-button {
+    position: relative;
+    width: 10%;
+}
+
+.play-container #input-msg {
+    position: absolute;
+    top: 80%;
+    left: 80%;
+    width: 20%;
+    background: #d18547
+}
+
+.play-container #topBar {
+    display: flex;
+    flex-direction: row;
+    height: 2.5%;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    background: #ccc;
+}
+
+.play-container #gameName {
+    color: #fff;
+    background: #2a42c9;
+    border: 1px solid #000;
+    width: max-content;
+    cursor: default;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-right: 1rem;
+}
+
+.play-container .user {
+    background: #4256c7;
+    border: 1px solid #000;
+    width: max-content;
+}
+
+.play-container #usersCont {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.play-container .game-event {
+    width: 90%;
+    background: #1b2b70;
+    border-top: 2px solid #fff;
+    color: #fff;
+    font-size: 11pt;
+    margin-left: 5%;
+}
+
+.play-container .battlefield {
+    display: grid;
+    grid-template-rows: auto auto;
+    height: 40.25vh;
+    position: fixed;
+    width: 70vw;
+    left: 10vw
+}
+
+.play-container #opponentField {
+    top: 2.5vh;
+    border-bottom: 2px solid #000;
+}
+
+.play-container #playerField {
+    top: 42.75vh;
+}
+
+.play-container .card, .play-container #handArea img {
+    width: 11.5vh;
+    height: 15vh;
+    margin: 1vh;
+    background: #000;
+    border-radius: 0.55vh;
+}
+
+.play-container #contextMenu {
+    visibility: collapse;
+    position: fixed;
+    height: min-content;
+    width: 5vw;
+    display: flex;
+    flex-direction: column;
+    background: #ccc;
+}
+
+.play-container .context-menu-item {
+    background: #888;
+    margin: 0.25rem;
+    font-size: 9pt;
+    cursor: default;
+}
+
+.play-container .context-menu-item:hover {
+    background: #666;
+}
+
+@media (max-width: 1800px) {
+	.commander {
+		height: 12vw;
+	}
+}
+@media (max-width: 1650px) {
+	.commander {
+		height: 13vw;
+	}
+}
+
+@media (max-width: 1500px) {
+	footer {
+		height: 2.5rem;
+	}
+	.commander {
+		height: 14vw;
+	}
+}
+
+@media (max-width: 1150px) {
+	.deck-container {
+		grid-template-columns: repeat(4, 20vw);
+	}
+	.commander {
+		height: 20vw;
+	}
+	.cmc-settings {
+		top: 27vh;
+		left: 3vw;
+	}
+}
+
+/* Mobile */
+@media (max-width: 750px) {
+
+	.nav-items {
+		display: none;
+	}
+
+	.nav-hamburger {
+		display: inherit;
+	}
+
+	#topbar {
+		height: 50vh;
+	}
+
+	footer {
+		height: 3.5rem;
+	}
+	.commander {
+		height: 30vw;
+	}
+
+	/* #featuredDecksBar {
+		left: 50%;
+		top: 30%;
+		transform: translate(-50%, 0);
+		width: 75vw;
+	} */
+
+	.deck-container {
+		grid-template-columns: repeat(2, 45vw);
+	}
+
+	.filter-grid {
+		width: 50vw;
+		left: 25vw;
+	}
+
+	.text-stats {
+		position: relative;
+	}
+
+	.chart-container {
+		position: relative;
+	}
+
+	.preview-on-hover {
+		display: none;
+	}
+
+	.stats-container {
+		height: 35vh;
+	}
+
+	.cmc-settings {
+		left: 50vw;
+		top: 16vh;
+		width: 50vw;
+	}
+}
