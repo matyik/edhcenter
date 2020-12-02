@@ -11,6 +11,7 @@
 
 # production
 /client/build
+/client/src/styles/styles.css
 
 # misc
 .DS_Store
