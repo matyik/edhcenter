@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import qs from 'qs'
 import io from 'socket.io-client'
-import Background from '../Background'
-import '../../play.css'
 
 const { username, game } = (qs.parse(document.location.search, {
     ignoreQueryPrefix: true
@@ -97,20 +95,29 @@ export default function Play() {
 
     return (
         <div className='play-container'>
-            <Background />
-            <div id='topBar'>
-                <div id="gameName">{game}</div>
-                <div id="usersCont">{username}</div>
+            <div className='top-bar'>
+                <div className="game-name">{game}</div>
+                <div className="users-cont"><div className="user">{username}</div></div>
             </div>
-            <div className="battlefield" id="opponentField">
-                <div id='opponentLands' className="bfCol"></div>
-                <div id='opponentNonlands' className="bfCol"></div>
+            <div className="left-menu">
+                <div className="option">Search Library</div>
+                <div className="option">Shuffle Library</div>
+                <div className="option">Insert Card/Token</div>
+                <div className="option">Attack</div>
+                <div className="option">Command Zone</div>
+                <div className="option">Roll Die</div>
+                <div className="option">Undo</div>
+                <div className="option">Options</div>
             </div>
-            <div className="battlefield" id="playerField">
-                <div id='playerNonlands' className="bfCol"></div>
-                <div id='playerLands' className="bfCol"></div>
+            <div className="battlefield opponent-field">
+                <div className='opponent-lands bfCol'></div>
+                <div className="bfCol opponent-nonlands"></div>
             </div>
-            <div ref={chatBarRef} id='chatBar'>
+            <div className="battlefield player-field">
+                <div className="bfCol player-nonlands"></div>
+                <div className="bfCol player-lands"></div>
+            </div>
+            <div ref={chatBarRef} className='chat-bar'>
                 {chat.map(({ username, message}, index) => (
                     <div key={index} className='chat-message'>
                         <p className='meta'>{username}</p>
@@ -118,16 +125,16 @@ export default function Play() {
                     </div>
                 ))}
             </div>
-            <form id="input-msg" onSubmit={submitMsg}>
-                <input id='msg' type='text' placeholder='Message' />
-                <button id='send-button'>Send</button>
+            <form className="input-msg" onSubmit={submitMsg}>
+                <input className='msg' id='msg' type='text' placeholder='Message' />
+                <button className='send-button ec-button'>Send</button>
             </form>
-            <div id='bottomBar'>
-                <div id='graveyardArea'></div>
-                <div id='handArea'></div>
-                <div id='libraryArea'></div>
+            <div className='bottom-bar'>
+                <div className='graveyard-area'></div>
+                <div className='hand-area'></div>
+                <div className='library-area'></div>
             </div>
-            <div id="contextMenu">
+            <div className="context-menu">
                 <div className="context-menu-item">Hand</div>
                 <div className="context-menu-item">Graveyard</div>
                 <div className="context-menu-item">Exile</div>

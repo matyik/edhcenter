@@ -1,26 +1,52 @@
 import React from 'react'
-import { useTransition } from 'react-spring'
+import { useTransition, animated } from 'react-spring'
 
-export const MobileNav = ({ show }) => {
+export const MobileNav = ({ showNav }) => {
 
-    const transitions = useTransition(show, null, {
-        from: { position: 'absolute', opacity: 0 },
-        enter: { opacity: 1 },
-        leave: { opacity: 0 },
+    const topTransitions = useTransition(showNav.top, null, {
+        from: { transform: 'translateY(-125%)' },
+        enter: { transform: 'translateY(0)' },
+        leave: { transform: 'translateY(-125%)' },
+    })
+
+    const midTransitions = useTransition(showNav.middle, null, {
+        from: { transform: 'translateY(-125%)' },
+        enter: { transform: 'translateY(0)' },
+        leave: { transform: 'translateY(-125%)' },
+    })
+
+    const bottomTransitions = useTransition(showNav.bottom, null, {
+        from: { transform: 'translateY(-125%)' },
+        enter: { transform: 'translateY(0)' },
+        leave: { transform: 'translateY(-125%)' },
     })
 
     return (
         <React.Fragment>
-            {transitions.map(({ item, key, props }) =>
+            {bottomTransitions.map(({ item, key, props }) =>
                 item &&
-                    <div key={key} className="mobile-nav" style={props}>
-                        <span>Deck Builder</span>
-                        <span>Tools</span>
-                        <span>Other Pages</span>
-                        <span>Browse Decks</span>
-                        <span>Play Game</span>
-                        <span>Log In</span>
-                    </div>
+                    <>
+                        <animated.div className='mn-bg bg-2' style={props} key={`b${key}`}></animated.div>
+                    </>
+            )}
+            {midTransitions.map(({ item, key, props }) =>
+                item &&
+                    <>
+                        <animated.div className='mn-bg bg-1' style={props} key={`m${key}`}></animated.div>
+                    </>
+            )}
+            {topTransitions.map(({ item, key, props }) =>
+                item &&
+                    <>
+                        <animated.div key={`t${key}`} className="mn-bg mobile-nav" style={props}>
+                            <span>Deck Builder</span>
+                            <span>Tools</span>
+                            <span>Other Pages</span>
+                            <span>Browse Decks</span>
+                            <span>Play Game</span>
+                            <span>Log In</span>
+                        </animated.div>
+                    </>
             )}
         </React.Fragment>
     )

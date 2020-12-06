@@ -1,5 +1,6 @@
 @import 'config';
 @import 'color_logic';
+@import 'play';
 
 
 body {
@@ -18,15 +19,14 @@ body {
 	width: 100vw;
 	height: 100vh;
 }
-.cards {
-	cursor: default;
-}
+
 .card {
 	text-align: center;
 	width: inherit;
 	background-color: $color_1;
-	border-top: #000 2px solid;
-	cursor: default;
+    border-top: #000 2px solid;
+    font-family: Open Sans;
+	cursor: pointer;
     transition: background-color 500ms, color 500ms;
     color: set-text-color($color_1);
 
@@ -41,7 +41,7 @@ body {
 	top: 5vh;
 	display: grid;
 	grid-template-columns: repeat(5, 15vw);
-	grid-column-gap: 5vw;
+    grid-column-gap: 5vw;
 }
 .preview-on-hover {
 	position: fixed;
@@ -54,7 +54,7 @@ body {
 	transform: translate(-110%, 0px);
 	background: #000;
 	color: #fff;
-	border-radius: 9px;
+    border-radius: 9px;
 }
 .topbar {
 	text-align: center;
@@ -63,18 +63,13 @@ body {
 	height: 42vh;
 	opacity: 99%;
 	border-bottom: #fff solid 2px;
+	overflow: visible;
 }
 .title-text {
 	font-size: 24pt;
 	font-family: comic sans ms;
 }
-.title-input {
-	background: transparent;
-	border: none;
-	text-align: center;
-	font-size: 24pt;
-	font-family: comic sans ms;
-}
+
 .text-stats {
 	position: absolute;
 	left: 1vw;
@@ -100,7 +95,11 @@ body {
 	width: 15%;
 	position: absolute;
 	top: 11%;
-	left: 20%;
+    left: 20%;
+    & input {
+        margin-bottom: 0.2rem;
+        margin-top: 0.2rem;
+    }
 }
 .image-previewer {
 	position: fixed;
@@ -195,7 +194,7 @@ body {
 }
 
 footer {
-	height: 1.5rem;
+	height: auto;
 	color: #fff;
 	border-top: 2px solid #fff;
 	background: rgb(78, 78, 78);
@@ -238,7 +237,7 @@ a {
         &:hover {
             background-color: darken($color: #ccc, $amount: 10)
         }
-    }
+	}
 }
 
 .commander {
@@ -281,7 +280,10 @@ a {
 }
 
 .modal-content {
-    padding: 1rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	font-family: Open Sans;
     
     & input {
         width: 80%;
@@ -293,7 +295,26 @@ a {
             background-color: #a0e1ff;
             border: none;
         }
-    }
+	}
+	
+	& .left-spread {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+		grid-column-gap: 3rem;
+
+		& span {
+			text-align: left;
+
+			&.left {
+				text-align: right;
+			}
+		}
+	}
+
+	& img {
+		width: 9vw;
+		border-radius: 9px;
+	}
 }
 
 .modal-bottom {
@@ -362,6 +383,22 @@ a {
 	display: none;
 }
 
+.mn-bg {
+	width: 100vw;
+	position: fixed;
+	top: 5.5vh;
+}
+
+.bg-1 {
+	background: $color_2;
+	height: 17rem;
+}
+
+.bg-2 {
+	background: $color_4;
+	height: 19.5rem;
+}
+
 .mobile-nav {
 	display: flex;
 	flex-direction: column;
@@ -370,189 +407,16 @@ a {
 	background-color: #39393A;
 	color: #fff;
 	font-family: Open Sans;
-}
+	border-top: 1px #fff;
+	border-bottom: 1px #fff;
 
-.play-container {
-    margin: 0px;
-    padding: 0px;
-    background-color: #46bec2;
-    font-family: Open Sans;
-}
-
-.play-container #bottomBar {
-    background: #46c257;
-    position: fixed;
-    top: 83%;
-    height: 17%;
-    width: 100%;
-}
-
-.play-container #bottomBar div {
-    height: 16%;
-    border: 2px solid #000;
-    position: fixed;
-    top: 83.5%;
-}
-
-.play-container #graveyardArea {
-    left: 0px;
-    width: 12.5vw;
-}
-
-.play-container #handArea {
-    left: 13.25vw;
-    width: 79.75vw;
-    display: flex;
-    align-content: center;
-}
-
-.play-container #libraryArea {
-    left: 93.75vw;
-    width: 6.25vw;
-}
-
-.play-container #chatBar {
-    position: fixed;
-    height: 77%;
-    width: 20%;
-    background: #d18547;
-    border: 2px solid #000;
-    left: 80%;
-    top: 2.5%;
-    overflow-y: scroll;
-}
-
-.play-container .chat-message {
-    background: #94babb;
-    width: 85%;
-    font-size: 12pt;
-    position: relative;
-    left: 7.5%;
-    border-radius: 9px;
-    margin: 2%;
-}
-
-.play-container .meta {
-    color: #2a42c9;
-    position: relative;
-    left: 5%;
-}
-
-.play-container .text {
-    color: #222;
-    position: relative;
-    left: 2.5%;
-}
-
-.play-container #message-input {
-    position: relative;
-    width: 80%;
-    margin: 1.5%;
-}
-
-.play-container #send-button {
-    position: relative;
-    width: 10%;
-}
-
-.play-container #input-msg {
-    position: absolute;
-    top: 80%;
-    left: 80%;
-    width: 20%;
-    background: #d18547
-}
-
-.play-container #topBar {
-    display: flex;
-    flex-direction: row;
-    height: 2.5%;
-    position: fixed;
-    left: 0%;
-    top: 0%;
-    width: 100%;
-    border-bottom: 1px solid #000;
-    background: #ccc;
-}
-
-.play-container #gameName {
-    color: #fff;
-    background: #2a42c9;
-    border: 1px solid #000;
-    width: max-content;
-    cursor: default;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-right: 1rem;
-}
-
-.play-container .user {
-    background: #4256c7;
-    border: 1px solid #000;
-    width: max-content;
-}
-
-.play-container #usersCont {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-}
-
-.play-container .game-event {
-    width: 90%;
-    background: #1b2b70;
-    border-top: 2px solid #fff;
-    color: #fff;
-    font-size: 11pt;
-    margin-left: 5%;
-}
-
-.play-container .battlefield {
-    display: grid;
-    grid-template-rows: auto auto;
-    height: 40.25vh;
-    position: fixed;
-    width: 70vw;
-    left: 10vw
-}
-
-.play-container #opponentField {
-    top: 2.5vh;
-    border-bottom: 2px solid #000;
-}
-
-.play-container #playerField {
-    top: 42.75vh;
-}
-
-.play-container .card, .play-container #handArea img {
-    width: 11.5vh;
-    height: 15vh;
-    margin: 1vh;
-    background: #000;
-    border-radius: 0.55vh;
-}
-
-.play-container #contextMenu {
-    visibility: collapse;
-    position: fixed;
-    height: min-content;
-    width: 5vw;
-    display: flex;
-    flex-direction: column;
-    background: #ccc;
-}
-
-.play-container .context-menu-item {
-    background: #888;
-    margin: 0.25rem;
-    font-size: 9pt;
-    cursor: default;
-}
-
-.play-container .context-menu-item:hover {
-    background: #666;
+	& span {
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		border-top: 1px #fff;
+		border-bottom: 1px #fff;
+		text-align: center;
+	}
 }
 
 @media (max-width: 1800px) {
@@ -567,9 +431,6 @@ a {
 }
 
 @media (max-width: 1500px) {
-	footer {
-		height: 2.5rem;
-	}
 	.commander {
 		height: 14vw;
 	}
@@ -578,6 +439,13 @@ a {
 @media (max-width: 1150px) {
 	.deck-container {
 		grid-template-columns: repeat(4, 20vw);
+	}
+	.modal-main-card {
+		left: 20vw;
+		width: 60vw;
+	}
+	.cardimg {
+		width: 15vw;
 	}
 	.commander {
 		height: 20vw;
@@ -603,9 +471,6 @@ a {
 		height: 50vh;
 	}
 
-	footer {
-		height: 3.5rem;
-	}
 	.commander {
 		height: 30vw;
 	}

@@ -1,0 +1,224 @@
+@import 'config';
+
+.play-container {
+    margin: 0px;
+    padding: 0px;
+    font-family: Open Sans;
+
+    .bottom-bar {
+        display: flex;
+        background: $color_2;
+        position: fixed;
+        top: 83%;
+        height: 17%;
+        width: 100%;
+
+
+        div {
+            height: 100%;
+            border: 2px solid #000;
+            top: 83.5%;
+        }
+
+        .graveyard-area {
+            width: 25.3vh;
+        }
+    
+        .hand-area {
+            flex-grow: 1;
+            display: flex;
+            align-content: center;
+            margin-left: 1vw;
+            margin-right: 1vw;
+            overflow: scroll;
+        }
+    
+        .library-area {
+            width: 12.15vh;
+        }
+    }
+
+    .chat-bar {
+        position: fixed;
+        height: 77%;
+        width: 20%;
+        background: $color_1;
+        border: 2px solid #000;
+        left: 80%;
+        top: 2.5%;
+        overflow-y: scroll;
+    }
+
+    .chat-message {
+        background: $color_2;
+        width: 85%;
+        font-size: 12pt;
+        position: relative;
+        left: 7.5%;
+        border-radius: 9px;
+        margin: 2%;
+    }
+
+    .meta {
+        color: $color_3;
+        position: relative;
+        left: 5%;
+    }
+
+    .text {
+        color: #222;
+        position: relative;
+        left: 2.5%;
+    }
+
+    .msg {
+        position: relative;
+        width: 60%;
+        margin: 1.5%;
+    }
+
+    .send-button {
+        position: relative;
+        width: 30%;
+        height: 2.5vh;
+        padding: 0;
+        margin: 0;
+    }
+
+    .input-msg {
+        position: absolute;
+        top: 80%;
+        left: 80%;
+        width: 20%;
+        background: $color_1;
+    }
+
+    .top-bar {
+        display: flex;
+        flex-direction: row;
+        height: 2.5%;
+        position: fixed;
+        left: 0%;
+        top: 0%;
+        width: 100%;
+        border-bottom: 1px solid #000;
+        background: #ccc;
+    }
+
+    .game-name {
+        color: #fff;
+        background: $color_5;
+        border: 1px solid #000;
+        width: max-content;
+        cursor: default;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-right: 0.5rem;
+        margin-left: 1rem;
+    }
+
+    .user {
+        background: $color_2;
+        border: 1px solid #000;
+        width: max-content;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        cursor: default
+    }
+
+    .users-cont {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+    }
+
+    .game-event {
+        width: 90%;
+        background: $color_5;
+        border-top: 2px solid #fff;
+        color: #fff;
+        font-size: 11pt;
+        margin-left: 5%;
+    }
+
+    .battlefield {
+        display: grid;
+        grid-template-rows: auto auto;
+        height: 40.25vh;
+        position: fixed;
+        width: 70vw;
+        left: 10vw
+    }
+
+    .opponent-field {
+        top: 2.5vh;
+        border-bottom: 2px solid #000;
+        overflow: scroll;
+    }
+
+    .player-field {
+        top: 42.75vh;
+        overflow: scroll;
+    }
+
+    .card, .hand-area img {
+        width: 11.5vh;
+        height: 15vh;
+        margin: 1vh;
+        background: #000;
+        border-radius: 0.55vh;
+    }
+
+    .context-menu {
+        visibility: collapse;
+        position: fixed;
+        height: min-content;
+        width: 5vw;
+        display: flex;
+        flex-direction: column;
+        background: #ccc;
+    }
+
+    .context-menu-item {
+        background: #888;
+        margin: 0.25rem;
+        font-size: 9pt;
+        cursor: default;
+    }
+
+    .context-menu-item:hover {
+        background: $color_5;
+    }
+
+    .left-menu {
+        position: absolute;
+        top: 2.6vh;
+        display: flex;
+        height: 80.4vh;
+        width: 10vw;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #ccc;
+        border-right: 2px solid #000;
+
+        .option {
+            color: $color_4;
+            background-color: $color_2;
+            padding: 2.5vh 0;
+            border-top: 2px #000 solid;
+            border-bottom: 2px #000 solid;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 300ms;
+
+            &:hover {
+                background-color: $color_3;
+            }
+        }
+    }
+}

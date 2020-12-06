@@ -12,6 +12,7 @@ export default function Main() {
         commander: [],
         basics: []
     })
+    const [cardInfo, setCardInfo] = useState()
     const [stats, setStats] = useState({
         avgCMC: 0,
     })
@@ -65,7 +66,8 @@ export default function Main() {
         gameModal: true,
         gameButton: true,
         deckFilters: true,
-        loadingBar: true
+        loadingBar: true,
+        cardModal: true
     })
     const [urls, setUrls] = useState([])
     let cmcMods = useRef({
@@ -81,8 +83,14 @@ export default function Main() {
         phyrexian: [0, 0, 0, 0, 0, 0, 0]
     })
     const [chartData, setChartData] = useState([0, 0, 0, 0, 0, 0, 0, 0])
+
     const transitions = useTransition(visibilities.gameModal, null, {
-        from: { position: 'absolute', opacity: 0 },
+        from: { position: 'fixed', opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+    })
+    const cardModalTransition = useTransition(visibilities.cardModal, null, {
+        from: { position: 'fixed', opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
     })
@@ -164,6 +172,8 @@ export default function Main() {
         })
     }
 
+    // let loadRender
+    // const intervalling = useRef(false)
     const calculateStats = () => {
         let typesToSet = new Map()
         deck.deckArray.forEach( async (item) => {
@@ -171,6 +181,10 @@ export default function Main() {
             const json = await res.json()
             let loadedCards = loading
             loadedCards.push(item)
+            // if (!intervalling.current) {
+            //     intervalling.current = true
+            //     loadRender = setInterval(() => {setLoading(loadedCards);console.log(`loaded ${loading.length}`)}, 1000)
+            // }
             setLoading(loadedCards)
 
             const typesLine = json.type_line
@@ -215,7 +229,7 @@ export default function Main() {
             return
         } else {
             if (loading.length === deck.deckArray.length) {
-                console.log('done loading')
+                // clearInterval(loadRender)
                 setVisibilities({ ...visibilities,
                     statsText: true,
                     deckFilters: false,
@@ -225,7 +239,7 @@ export default function Main() {
             }
         }
         // eslint-disable-next-line
-    }, [loading.length])
+    }, [loading.length, loading])
 
     const makeDeck = (deckFile) => {
         const reader = new FileReader()
@@ -341,6 +355,24 @@ export default function Main() {
         setVisibilities({ ...visibilities, gameModal: false })
     }
 
+    const loadCardModalData = async (cardName) => {
+        const res = await fetch('https://api.scryfall.com/cards/named?fuzzy=' + cardName)
+        const json = await res.json()
+        let isReserved
+        json.reserved ? isReserved = 'Yes' : isReserved = 'No'
+        const cardLegality = json.legalities.commander.charAt(0).toUpperCase() + json.legalities.commander.slice(1)
+        setCardInfo({
+            price: `$${json.prices.usd}`,
+            legality: cardLegality,
+            set: json.set_name,
+            rank: json.edhrec_rank,
+            reserved: isReserved,
+            url: json.image_uris.normal,
+            name: cardName
+        })
+        setVisibilities({ ...visibilities, cardModal: false })
+    }
+
     return (
         <div className='mainwrap'>
             <div className='topbar'>
@@ -419,19 +451,19 @@ export default function Main() {
                         (!types[key].status && (cardTypes.get(item).indexOf(types[key].name.slice(0, -1)) !== -1)) && (dontRender = true)
                     })
 
-                    if (!dontRender) return <div key={index} onMouseEnter={() => previewCard(item)} className='card'>{item}</div>
+                    if (!dontRender) return <div key={index} onMouseEnter={() => previewCard(item)} onClick={() => loadCardModalData(item)} className='card'>{item}</div>
                 })/* eslint-disable-next-line */}
                 {(types.land.status) && deck.basics.map((item, index) => {
                     const basicsList = ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest', 'Wastes']
                     if (item !== 0) {
-                        return <div key={`pr${index}`} onMouseEnter={() => previewCard(basicsList[index])} className='card'>{`${item} ${basicsList[index]}`}</div>
+                        return <div key={`pr${index}`} onMouseEnter={() => previewCard(basicsList[index])} onClick={() => loadCardModalData(basicsList[index])} className='card'>{`${item} ${basicsList[index]}`}</div>
                     }
                 })}
             </div>
             {transitions.map(({ item, key, props }) =>
                 !item &&
                     <React.Fragment key={key}>
-                        <animated.div className='modal-shade' hidden={visibilities.gameModal} onClick={() => setVisibilities({ ...visibilities, gameModal: true })}></animated.div>
+                        <div className='modal-shade' hidden={visibilities.gameModal} onClick={() => setVisibilities({ ...visibilities, gameModal: true })}></div>
                         <animated.div style={props} className='modal-main'>
                             <div className='modal-title'>Game Options</div>
                             <div className='modal-content'>
@@ -443,6 +475,34 @@ export default function Main() {
                             <div className='modal-bottom'>
                                 <div className='ec-button' onClick={() => gameForm.current.submit()}>Join Game</div>
                                 <div className='ec-button ec-button-gray' onClick={() => setVisibilities({ ...visibilities, gameModal: true })}>Close</div>
+                            </div>
+                        </animated.div>
+                    </React.Fragment>
+                )
+            }
+            {cardModalTransition.map(({ item, key, props }) =>
+                !item &&
+                    <React.Fragment key={`cm${key}`}>
+                        <div className='modal-shade' hidden={visibilities.cardModal} onClick={() => setVisibilities({ ...visibilities, cardModal: true })}></div>
+                        <animated.div style={props} className='modal-main modal-main-card'>
+                            <div className='modal-title'>Card Info</div>
+                            <div className='modal-content'>
+                                <div className="left-spread">
+                                    <span className='left'>Price:</span>
+                                    <span>{cardInfo.price}</span>
+                                    <span className='left'>Legality:</span>
+                                    <span>{cardInfo.legality}</span>
+                                    <span className='left'>Set:</span>
+                                    <span>{cardInfo.set}</span>
+                                    <span className='left'>Edhrec Rank:</span>
+                                    <span>{cardInfo.rank}</span>
+                                    <span className='left'>Reserved:</span>
+                                    <span>{cardInfo.reserved}</span>
+                                </div>
+                                <img src={cardInfo.url} alt={cardInfo.name} className="cardimg"/>
+                            </div>
+                            <div className='modal-bottom'>
+                                <div className='ec-button ec-button-gray' onClick={() => setVisibilities({ ...visibilities, cardModal: true })}>Close</div>
                             </div>
                         </animated.div>
                     </React.Fragment>
