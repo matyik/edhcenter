@@ -1,0 +1,123 @@
+@keyframes slide {
+  from {
+    left: 120%;
+  }
+  to {
+    left: 0%;
+  }
+}
+
+.container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    color: $color_1;
+  }
+
+  .login-container {
+    border: 2px solid $color_4;
+    padding: 2.5rem;
+    width: 70%;
+
+    label {
+      color: $color_4;
+      font-size: 8pt;
+    }
+  }
+
+  h2 {
+    color: $color_2;
+    text-align: center;
+  }
+
+  .input-container {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .square-input {
+    border: 2px solid $color_4;
+    width: 90%;
+    font-size: 18pt;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .register-container {
+    overflow: hidden;
+    margin: 2.5rem;
+    border: $color_4 solid 2px;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+
+    .back-btn {
+      width: max-content;
+      margin-top: 1rem;
+    }
+
+    .slides {
+      width: 400%;
+      display: flex;
+      justify-content: space-between;
+      transition: all 500ms;
+
+      .input-slide {
+        width: 90%;
+        margin-left: 5rem;
+        margin-right: 5rem;
+
+        p {
+          color: #ddd;
+        }
+
+        form {
+          display: flex;
+        }
+
+        .ec-button {
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .alerts-container {
+    position: fixed;
+    top: 6rem;
+    right: 2rem;
+    overflow: hidden;
+    padding-right: 0.5rem;
+
+    .alert-container {
+      position: relative;
+      padding: 0.5rem;
+      background-color: rgb(185, 36, 36);
+      color: #fff;
+      border-radius: 4px;
+      box-shadow: 0.2rem 0.2rem 0.2rem lighten($color: $color_6, $amount: 10);
+      margin-bottom: 2rem;
+      animation-name: slide;
+      animation-duration: 200ms;
+    }
+  }
+}
+
+@media (min-width: 750px) {
+  .login-container,
+  .register-container {
+    width: 50%;
+
+    .input-slide {
+      width: 50%;
+    }
+    input {
+      font-size: 14pt;
+    }
+  }
+}

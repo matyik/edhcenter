@@ -1,0 +1,605 @@
+@import 'config';
+@import 'color_logic';
+@import 'play';
+@import 'deck-maker';
+@import 'featured-deck';
+@import 'login-register';
+@import 'profile';
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 4rem;
+  align-items: center;
+  background-color: $color_6;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.bg-svg {
+  filter: blur(100px);
+  position: fixed;
+  left: 0;
+  top: 5.5vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+.tournament-bar {
+  background: lighten($color: $color_6, $amount: 10);
+  border: 2px solid $color_3;
+  margin: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .tournament-text {
+    font-size: 16pt;
+    color: $color_4;
+    width: 100%;
+  }
+
+  .tournament {
+    background: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem;
+    border-top: 8px solid $color_3;
+    cursor: pointer;
+    width: 45%;
+
+    span {
+      width: 45%;
+      margin: 0.1rem;
+    }
+
+    &:hover {
+      background: darken($color: #ddd, $amount: 10);
+      border-top-color: darken($color: $color_3, $amount: 10);
+    }
+
+    &-name,
+    &-creator {
+      color: $color_1;
+    }
+  }
+}
+
+.card {
+  text-align: center;
+  width: inherit;
+  background-color: $color_1;
+  border-top: #000 2px solid;
+  cursor: pointer;
+  transition: background-color 500ms, color 500ms;
+  color: set-text-color($color_1);
+
+  &:hover {
+    background-color: $color_2;
+    color: set-text-color($color_2);
+  }
+}
+h3 {
+  color: $color_4;
+  text-align: left;
+  margin-left: 4rem;
+}
+.deck-container {
+  position: relative;
+  left: 2.5vw;
+  top: 5vh;
+  display: grid;
+  grid-template-columns: repeat(5, 15vw);
+  grid-column-gap: 5vw;
+}
+.preview-on-hover {
+  position: fixed;
+  max-height: 448px;
+  max-width: 680px;
+  left: 100%;
+  width: 200px;
+  height: 280px;
+  top: 7%;
+  transform: translate(-110%, 0px);
+  background: #000;
+  color: #fff;
+  border-radius: 9px;
+}
+.topbar {
+  text-align: center;
+  width: 100%;
+  height: 42vh;
+  opacity: 99%;
+  border-bottom: #fff solid 2px;
+  color: #fff;
+  padding: 1rem;
+}
+.title-text {
+  font-size: 24pt;
+  margin-bottom: 1rem;
+}
+
+.text-stats {
+  position: absolute;
+  left: 1vw;
+  top: 8%;
+  text-align: left;
+  font-size: 12pt;
+  background-color: $color_5;
+  width: 9rem;
+  color: set-text-color($color_5);
+  border: 2px solid #fff;
+  border-radius: 7px;
+  padding: 1rem;
+}
+
+.cmc-settings {
+  background: $color_5;
+  color: set-text-color($color_5);
+  border: 2px solid #fff;
+  border-radius: 11px;
+  text-align: left;
+  width: 15%;
+  position: absolute;
+  top: 11%;
+  left: 20%;
+  & input {
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+  }
+}
+.image-previewer {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  border-radius: 9px;
+}
+
+.paragraph {
+  text-align: justify;
+  width: 50%;
+  position: absolute;
+  left: 25vw;
+  background: #ccc;
+  opacity: 80%;
+}
+
+.error-card {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-topbar {
+  background: linear-gradient(233deg, $color_2, $color_6, $color_4);
+  color: #fff;
+  font-size: 14pt;
+  align-items: center;
+  border-bottom: 2px solid #fff;
+  height: 5.5vh;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  & img {
+    height: 5vh;
+    cursor: pointer;
+    justify-self: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  & span {
+    cursor: default;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  width: 38vw;
+}
+
+.chart-container {
+  position: relative;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -0%);
+  width: 400px;
+  height: 400px;
+  color: $color_1;
+}
+
+footer {
+  height: auto;
+  color: #fff;
+  border-top: 2px solid #fff;
+  background: rgb(78, 78, 78);
+  position: relative;
+  top: 4rem;
+  text-align: center;
+  width: 100vw;
+}
+
+a {
+  color: #0000ff;
+}
+
+.ec-button {
+  background-color: $color_3;
+  font-size: 11pt;
+  border: 1.5px solid;
+  border-bottom-color: #fff;
+  border-left-color: #fff;
+  border-right-color: #ddd;
+  border-top-color: #ddd;
+  color: #fff;
+  margin: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 250ms ease-in;
+
+  &:hover {
+    background-color: darken($color: $color_3, $amount: 10);
+    border-top-color: #fff;
+    border-right-color: #fff;
+    border-bottom-color: #ddd;
+    border-left-color: #ddd;
+  }
+
+  &-gray {
+    background-color: #ccc;
+
+    &:hover {
+      background-color: darken($color: #ccc, $amount: 10);
+    }
+  }
+}
+
+.commander {
+  height: 10vw;
+  border-radius: 9px;
+  margin: 1rem;
+  position: relative;
+  top: 5vh;
+}
+
+.mainwrap {
+  text-align: center;
+}
+
+.modal-shade {
+  top: 0;
+  left: 0;
+  position: fixed;
+  opacity: 0.6;
+  background-color: #333;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-main {
+  position: fixed;
+  left: 30vw;
+  top: 15vh;
+  width: 40vw;
+  height: 70vh;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+
+.modal-title {
+  background-color: #ddd;
+  padding: 0.25rem;
+}
+
+.modal-main-card .modal-content {
+  display: flex;
+}
+
+.input {
+  position: relative;
+  font-size: 16px;
+  background: $color_5;
+  border-radius: 5px;
+  margin-top: 1rem;
+
+  &__input {
+    border: none;
+    padding: 25px 10px 15px 10px;
+    color: #fff;
+    background-color: transparent;
+    position: relative;
+    width: 100%;
+    font-size: 12pt;
+    z-index: 3;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus + .input__label,
+    &:not(:placeholder-shown) + .input__label {
+      transform: translateY(-16px);
+      padding-left: 1rem;
+      font-size: 12px;
+      color: #fff;
+    }
+  }
+
+  &__label {
+    display: flex;
+    padding-left: 1.5rem;
+    color: rgba(255, 255, 255, 0.75);
+    width: 100%;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    top: 0;
+    transition: 0.3s;
+    font-weight: 600;
+    align-items: center;
+    letter-spacing: 1px;
+    z-index: 2;
+    font-size: inherit;
+  }
+}
+
+.modal-content {
+  padding: 1rem;
+  justify-content: space-between;
+
+  & .left-spread {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 3rem;
+
+    & span {
+      text-align: left;
+
+      &.left {
+        text-align: right;
+      }
+    }
+  }
+
+  & img {
+    width: 9vw;
+    border-radius: 9px;
+  }
+}
+
+.modal-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.filter-grid {
+  width: 30vw;
+  position: relative;
+  left: 35vw;
+  display: flex;
+  border: 1px solid #00f;
+  justify-content: space-between;
+}
+
+.filter-item {
+  transition: all 250ms;
+  padding: 1vw;
+
+  &:hover {
+    background-color: #aaa;
+  }
+
+  & img {
+    height: 3vh;
+  }
+}
+
+.filter-gray {
+  filter: grayscale(100%);
+}
+
+.hover-helper {
+  position: absolute;
+  background-color: rgb(53, 53, 53);
+  color: #fff;
+  width: 10vw;
+  border-radius: 3px;
+}
+
+.loading-bar {
+  width: 20vw;
+  height: 10px;
+  border-radius: 5px;
+  background-color: rgb(139, 139, 139);
+  position: relative;
+  margin: 20px;
+  left: 40vw;
+  overflow: hidden;
+}
+
+.loaded {
+  background-color: $color_1;
+  height: 100%;
+}
+
+.stats-container {
+  height: 24vh;
+  overflow: hidden;
+}
+
+.decks-line {
+  width: 100%;
+  height: 2px;
+  background-color: $color_4;
+}
+
+.nav-hamburger {
+  display: none;
+}
+
+.mn-bg {
+  width: 100vw;
+  position: fixed;
+  top: 5.5vh;
+}
+
+.bg-1 {
+  background: $color_2;
+  height: 17rem;
+}
+
+.bg-2 {
+  background: $color_4;
+  height: 19.5rem;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  background-color: #39393a;
+  color: #fff;
+  border-top: 1px #fff;
+  border-bottom: 1px #fff;
+
+  & span {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-top: 1px #fff;
+    border-bottom: 1px #fff;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1800px) {
+  .commander {
+    height: 12vw;
+  }
+}
+@media (max-width: 1650px) {
+  .commander {
+    height: 13vw;
+  }
+}
+
+@media (max-width: 1500px) {
+  .commander {
+    height: 14vw;
+  }
+}
+
+@media (max-width: 1150px) {
+  .deck-container {
+    grid-template-columns: repeat(4, 20vw);
+  }
+  .modal-main-card {
+    left: 20vw;
+    width: 60vw;
+  }
+  .cardimg {
+    width: 15vw;
+  }
+  .commander {
+    height: 20vw;
+  }
+  .cmc-settings {
+    top: 27vh;
+    left: 3vw;
+  }
+}
+
+/* Mobile */
+@media (max-width: 750px) {
+  .tournament {
+    width: 100%;
+  }
+
+  .nav-items {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: inherit;
+  }
+
+  #topbar {
+    height: 50vh;
+  }
+
+  .commander {
+    height: 30vw;
+  }
+
+  /* #featuredDecksBar {
+		left: 50%;
+		top: 30%;
+		transform: translate(-50%, 0);
+		width: 75vw;
+	} */
+
+  .deck-container {
+    grid-template-columns: repeat(2, 45vw);
+  }
+
+  .filter-grid {
+    width: 50vw;
+    left: 25vw;
+  }
+
+  .text-stats {
+    position: relative;
+  }
+
+  .chart-container {
+    position: relative;
+  }
+
+  .preview-on-hover {
+    display: none;
+  }
+
+  .stats-container {
+    height: 35vh;
+  }
+
+  .cmc-settings {
+    left: 50vw;
+    top: 16vh;
+    width: 50vw;
+  }
+}
+
+@media (max-height: 1200) {
+  .modal-main {
+    height: 60vh;
+  }
+}

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Ham Pod",
+        "description": "An epic poggers deck",
+        "deckArray": ["card 1", "card 2", "card 3"],
+        "commander": ["red"],
+        "basics": [0, 12, 0, 0, 3],
+        "private": false,
+        "votes": 4,
+        "user": "602814cff547b5061870f018"
+    },
+    {
+        "name": "Budget Deck",
+        "description": "A budget deck",
+        "deckArray": ["card 69", "card 2", "card 3"],
+        "commander": ["mega"],
+        "basics": [0, 5, 2, 3, 3],
+        "private": true,
+        "comments": [{ "user": "bae6c76e-4fb4-11eb-ae93-0242ac130002", "text": "this is a bad deck" }],
+        "votes": 0,
+        "user": "602814cff547b5061870f018"
+    }
+]

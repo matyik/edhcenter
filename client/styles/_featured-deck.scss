@@ -1,0 +1,57 @@
+.fdeck-cont {
+  margin: 2rem;
+  padding-top: 0;
+  background: #ddd;
+  height: 110px;
+  width: 244px;
+  border-bottom: 2px solid $color_3;
+  border-left: 2px solid $color_3;
+  border-right: 2px solid $color_3;
+  cursor: pointer;
+
+  &:hover {
+    background: darken($color: #ddd, $amount: 10);
+  }
+
+  .top-border {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(0.25turn, #f9faf4, #150b00, #d3202a, #00733e);
+  }
+
+  .main-deck-cont {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 86px;
+
+    .wrap {
+      justify-self: center;
+
+      .title-bar {
+        display: flex;
+
+        h4 {
+          margin: 0;
+          padding: 0;
+          color: $color_3;
+        }
+
+        .creator {
+          margin-left: 1rem;
+        }
+      }
+      .line {
+        width: 100%;
+        height: 2px;
+        background: $color_5;
+        margin-top: 1px;
+        margin-bottom: 1px;
+      }
+      .cmd {
+        color: $color_1;
+      }
+    }
+  }
+}
